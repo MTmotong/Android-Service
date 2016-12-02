@@ -2,15 +2,31 @@ package com.example.servicetest;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
 public class MyService extends Service {
+	
+	private DownloadBinder mBinder = new DownloadBinder();
+	
+	class DownloadBinder extends Binder {
+		
+		public void startDownload() {
+			Log.d("MyService", "StartDownload executed");
+		}
+		
+		public int getProress() {
+
+			Log.d("MyService", "getProgress executed");
+			return 0;
+		}
+	}
 
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
-		return null;
+		return mBinder;
 	}
 	// 服务第一次创建时调用
 	@Override
