@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button stopService;
 	private Button bindService;
 	private Button unbindService;
+	private Button startIntentService;
 	private MyService.DownloadBinder downloadBinder;
 	private ServiceConnection connection = new ServiceConnection() {
 		
@@ -47,6 +49,8 @@ public class MainActivity extends Activity implements OnClickListener {
         unbindService = (Button) findViewById(R.id.unbind_service);
         bindService.setOnClickListener(this);
         unbindService.setOnClickListener(this);
+        startIntentService = (Button) findViewById(R.id.start_intent_service);
+        startIntentService.setOnClickListener(this);
     }
 
 	@Override
@@ -68,8 +72,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.unbind_service:
 			unbindService(connection);
 			break;
+		case R.id.start_intent_service:
+			Log.d("MainActivity", "Thread id is " + Thread.currentThread().getId());
+			Intent intentService = new Intent(this, MyIntentService.class);
+			startService(intentService);
 		default:
 			break;
 		}
 	}
 }
+
+//Intent intent = new Intent(AC1.this, AC2.class); 从活动1切换到活动2
+
+
